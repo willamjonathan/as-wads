@@ -5,6 +5,7 @@ import React, {useState} from 'react';
 import Add from './Components/Add';
 import Update from './Components/Update';
 import Task from './Components/Task';
+import Nama from './Components/Nama';
 // import Filter from './Components/Filter';
 
 function App() {
@@ -106,9 +107,7 @@ const FilterTodo = (status)=>{
 
   return (
     <div className="container App">
-      <div className = "TitBg">
-      <div className ="TitText"> <h2> TODO Application</h2></div></div><br></br>
-      <div className='nama'>William Jonathan - 2502045683</div>
+      <Nama name={'William Jonathan Mulyadi'} studentId={'2502045683'}/>
       <br/>
       {/*Function*/}
       {/* Update Task */}
