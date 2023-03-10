@@ -9,8 +9,8 @@ import Task from './Components/Task';
 
 function App() {
 // The state
-  const [task, setTask] = useState([
-  ])
+  const [task, setTask] = useState([])
+  const [allTaks, setAllTask] = useState([])
 
 // temp state
   const [create, setCreate] = useState('');
@@ -18,10 +18,7 @@ function App() {
 
 
 // FILTERING
-  const [isComplete, setIsComplete] = useState(true);
-  const [isIncomplete, setIsInComplete] = useState(false);
-  
-
+  const [isComplete, setIsComplete] = useState(false);
 
 // Add task
   const addT = () => {
@@ -82,71 +79,30 @@ const UpdateT = () => {
 }   
 // Filtering///////////////////////////////////////////////////////////////////////////////////
 
+const FilterCompleted = (status)=>{
+  if (status && !isComplete) {
+    setAllTask(task)
+    setIsComplete(true)
+    let taskList = task.filter ( t => t.status === status)
+    setTask(taskList)
+  } else {
+    setTask(allTaks)
+    setIsComplete(false) 
+  }  
+}
 
-//  nunjukin semua
-// const FilterAll= ()=>{
-
-// }
-
-// const FilterOr= (status)=>{
-//   let isComplete = [...task];
-//   if( status === true ){
-//         // check status dong makanya !
-//         // return ( { ...t, status: !t.status})
-//         // temp2={...isComplete, status: isComplete.status}
-//         // return setIsComplete(temp2);
-//         return {...isComplete, status: isComplete.status};
-//       }else if(status ===false){
-//         // return ( { ...t, status: !t.status})
-//         // temp2={...isComplete, status: isComplete.status}
-//         // return setIsComplete(temp2);
-//         return {...isComplete, status: isComplete.status};
-//       }
-//       setIsComplete(isComplete);
-//     }
-
-// const FilterOr= (status)=>{
-// //   let temp = [];
-// //   let temp2 = [];
-// //   task.map ( t=> {
-// //   if( status === true ){
-// //     for (var i=0; i < task.length; task.id++) {
-// //       let a = task[i].status === true
-// //       temp = a
-// //   } 
-
-// //     return ( setIsComplete(temp));
-// //   }else if(status ===false){
-// //     for (var j=0; j < task.length; task.id++) {
-// //       let b = task[j].status === false
-// //       temp2 = b
-// //     return ( setIsInComplete(temp2));
-// //     // return setIsComplete(createTasks);
-// //   }
-// //   return t;
-// // }})
-// }
-const FilterOr= (status)=>{
-  if(status === true){
-    // let createTasks = task.filter ( t => t.status !== status)
-    // setIsComplete(createTasks);
-    setIsComplete(isComplete);
-  }else if(status === false){
-    // let createTasks = task.filter ( t => t.status !== status)
-    // setIsInComplete(createTasks);
-    setIsInComplete(isIncomplete);
+const FilterTodo = (status)=>{
+  if (status && isComplete) {
+    setAllTask(task)
+    setIsComplete(false)
+    let taskList = task.filter ( t => t.status !== status)
+    setTask(taskList)
+  } else {
+    setTask(allTaks)
+    setIsComplete(true) 
   }
 }
-// const FilterAll = ()=>{
-//   <Task
-//         task = {task}
-//         compT = {compT}
-//         setUpdate = {setUpdate}
-//         removeT = {removeT}
-//       />  
-// }
 
-// Filtering///////////////////////////////////////////////////////////////////////////////////
 
   return (
     <div className="container App">
@@ -177,8 +133,8 @@ const FilterOr= (status)=>{
       <div className='Explanation'>{task && task.length ?'': 'No Task...'  }</div>
       <br/>
       {/* <button onClick = {()=> FilterAll}>All</button> */}
-      <button onClick={()=> FilterOr(true)}>Completed</button>
-      <button onClick={()=> FilterOr(false)}>Todo</button>  
+      <button onClick={()=> FilterCompleted(true)}>Completed</button>
+      <button onClick={()=> FilterTodo(true)}>Todo</button>  
       <br/><br/>
       <button onClick={()=> AllIsComplete()}>Complete All</button>  
       <button onClick={()=>clear()} >Clear</button>
